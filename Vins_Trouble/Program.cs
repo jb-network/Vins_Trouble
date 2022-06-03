@@ -90,9 +90,9 @@ void FinalCloseOut(Arrow arrowOne, float arrowCost)
     Console.Clear();
     Console.WriteLine("*******************Arrow Factory 3000: Processing order******************");
     Console.WriteLine($"The arrow you created has the following characteristics: " +
-    $"\nThe Arrowhead is made of {ArrowOne._ArrowHead}" +
-    $"\nThe Fletching is made of {ArrowOne._FletchingMaterial} " +
-    $"\nThe Shaft is {ArrowOne._TotalLength} cm");
+    $"\nThe Arrowhead is made of {ArrowOne.GetArrowhead()}" +
+    $"\nThe Fletching is made of {ArrowOne.GetFletchingMaterial()} " +
+    $"\nThe Shaft is {ArrowOne.GetTotalLength()} cm");
     Console.WriteLine($"\nThis type of custom arrow costs a total of {ArrowCost} gold per arrow");
     Console.Write($"\nHow many of these arrows would you like to order?: ");
     float TotalCost = Convert.ToSingle(Console.ReadLine());
@@ -105,10 +105,11 @@ void FinalCloseOut(Arrow arrowOne, float arrowCost)
 class Arrow
 {
     //must be set to Arrowhead because of the enum
-    //must be set to Fletchingmaterial because of enum 
-    public Arrowhead _ArrowHead;
-    public Fletchingmaterial _FletchingMaterial;
-    public float _TotalLength;
+    //must be set to Fletchingmaterial because of enum
+    // Set to private
+    private Arrowhead _ArrowHead;
+    private Fletchingmaterial _FletchingMaterial;
+    private float _TotalLength;
 
     //must be set to Arrowhead because of the enum
     //must be set to Fletchingmaterial because of enum 
@@ -118,6 +119,10 @@ class Arrow
         _FletchingMaterial = FletchingMaterial;
         _TotalLength = TotalLength;
     }
+    //Used get to work around private setting (used by lines 93 -95)
+    public Arrowhead GetArrowhead() => _ArrowHead;
+    public Fletchingmaterial GetFletchingMaterial() => _FletchingMaterial;
+    public float GetTotalLength() => _TotalLength;     
     //Method for total price
     public float GetCost()
     {
